@@ -4,23 +4,17 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Abdoulaye Nouridine - Développeur Web & Mobile</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="src/output.css" />
 
     <style>
-      body {
-        background-image: url(image/t1.jpg);
-        background-attachment: fixed;
-        background-repeat: no-repeat;
-        background-position: center;
-        background-size: cover;
-      }
-
       .header-gradient {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       }
     </style>
   </head>
-  <body class="min-h-screen py-8 px-4">
+  <body
+    class="bg-gradient-to-b from-purple-200 via-purple-100 to-white min-h-screen p-6"
+  >
     <!-- Navigation -->
     <nav
       class="max-w-5xl mx-auto bg-white bg-opacity-90 rounded-3xl shadow-lg mb-8 p-4"
@@ -53,6 +47,15 @@
         <div class="relative z-10">
           <h1 class="text-5xl font-bold mb-3">Abdoulaye Nouridine</h1>
           <p class="text-xl opacity-90 mb-6">Développeur Web & Mobile</p>
+
+          <!-- Bouton de bienvenue -->
+          <button
+            onclick="afficherBienvenue()"
+            class="bg-white text-purple-600 px-8 py-3 rounded-full font-semibold hover:bg-purple-100 transition-all transform hover:scale-105 shadow-lg mb-6"
+          >
+            Cliquez pour un message de bienvenue
+          </button>
+
           <div class="flex flex-wrap justify-center gap-6 text-sm">
             <div
               class="flex items-center gap-2 hover:-translate-y-1 transition-transform"
@@ -385,18 +388,29 @@
         <p>mon numero wattsapp est 93 73 40 52</p>
         <p>
           <a
-            href="https://wa.me/1234567890?text=Bonjour%20!%20Je%20veux%20plus%20d'infos."
-            >Envoyer un message WhatsApp
+            href="https://wa.me/22893734052?text=Bonjour%20!%20Je%20veux%20plus%20d'infos."
+            class="text-purple-400 hover:text-purple-300"
+          >
+            Envoyer un message WhatsApp
           </a>
         </p>
         <p>
           <a
             href="mailto:nouridineabdoulaye@gmail.com?subject=Demande%20d'information"
+            class="text-purple-400 hover:text-purple-300"
           >
             Envoyer un message
           </a>
         </p>
       </footer>
     </div>
+
+    <script>
+      function afficherBienvenue() {
+        alert(
+          "Bonjour ! C'est Abdoulaye. Soyez le bienvenue ! Le développement web est ma passion."
+        );
+      }
+    </script>
   </body>
 </html>
