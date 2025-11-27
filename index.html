@@ -46,6 +46,62 @@
           <h1 class="text-5xl font-bold mb-3">Abdoulaye Nouridine</h1>
           <p class="text-xl opacity-90 mb-6">Développeur Web & Mobile</p>
 
+          <!-- Ampoule Interactive -->
+          <div class="mb-6">
+            <div
+              id="ampoule"
+              class="inline-block cursor-pointer transform hover:scale-110 transition-all"
+              onclick="toggleAmpoule()"
+            >
+              <svg width="80" height="80" viewBox="0 0 100 100">
+                <!-- Ampoule -->
+                <ellipse
+                  id="bulb"
+                  cx="50"
+                  cy="40"
+                  rx="20"
+                  ry="25"
+                  fill="#888"
+                  stroke="#666"
+                  stroke-width="2"
+                />
+                <!-- Filament -->
+                <line
+                  id="filament"
+                  x1="50"
+                  y1="25"
+                  x2="50"
+                  y2="50"
+                  stroke="#666"
+                  stroke-width="2"
+                  opacity="0.5"
+                />
+                <!-- Culot -->
+                <rect
+                  x="42"
+                  y="60"
+                  width="16"
+                  height="8"
+                  fill="#999"
+                  stroke="#666"
+                  stroke-width="1"
+                />
+                <rect
+                  x="40"
+                  y="68"
+                  width="20"
+                  height="4"
+                  fill="#888"
+                  stroke="#666"
+                  stroke-width="1"
+                />
+              </svg>
+            </div>
+            <p id="statusText" class="text-sm mt-2 font-semibold text-white">
+              Cliquez sur l'ampoule !
+            </p>
+          </div>
+
           <!-- Bouton de bienvenue -->
           <button
             onclick="afficherBienvenue()"
@@ -404,6 +460,38 @@
     </div>
 
     <script>
+      // Variable pour suivre l'état de l'ampoule
+      let isOn = false;
+
+      function toggleAmpoule() {
+        const bulb = document.getElementById("bulb");
+        const filament = document.getElementById("filament");
+        const statusText = document.getElementById("statusText");
+        const body = document.body;
+
+        isOn = !isOn;
+
+        if (isOn) {
+          // Allumer l'ampoule
+          bulb.setAttribute("fill", "#FFD700");
+          bulb.style.filter = "drop-shadow(0 0 20px #FFD700)";
+          filament.setAttribute("stroke", "#FF6600");
+          filament.setAttribute("opacity", "1");
+          statusText.textContent = "💡 Ampoule allumée !";
+          statusText.style.color = "#FFD700";
+          body.style.backgroundColor = "#e0e7ff";
+        } else {
+          // Éteindre l'ampoule
+          bulb.setAttribute("fill", "#888");
+          bulb.style.filter = "none";
+          filament.setAttribute("stroke", "#666");
+          filament.setAttribute("opacity", "0.5");
+          statusText.textContent = "Cliquez sur l'ampoule !";
+          statusText.style.color = "#ffffff";
+          body.style.backgroundColor = "#3b82f6";
+        }
+      }
+
       function afficherBienvenue() {
         alert(
           "Bonjour ! C'est Abdoulaye. Soyez le bienvenue ! Le développement web est ma passion."
