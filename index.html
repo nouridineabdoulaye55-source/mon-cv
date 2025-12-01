@@ -10,9 +10,146 @@
       .header-gradient {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
       }
+
+      /* Animation du personnage */
+      #walkingCharacter {
+        position: fixed;
+        bottom: 20px;
+        left: -150px;
+        z-index: 1000;
+        transition: left 0.05s linear;
+      }
+
+      @keyframes walk {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-5px);
+        }
+      }
+
+      .walking {
+        animation: walk 0.5s infinite;
+      }
     </style>
   </head>
   <body class="bg-blue-700">
+    <!-- Personnage animé qui marche -->
+    <div id="walkingCharacter">
+      <svg width="120" height="140" viewBox="0 0 120 140">
+        <!-- Tête -->
+        <circle
+          cx="60"
+          cy="30"
+          r="18"
+          fill="#FFD4A3"
+          stroke="#000"
+          stroke-width="2"
+        />
+
+        <!-- Yeux -->
+        <circle cx="55" cy="28" r="2" fill="#000" />
+        <circle cx="65" cy="28" r="2" fill="#000" />
+
+        <!-- Sourire -->
+        <path
+          d="M 52 35 Q 60 38 68 35"
+          stroke="#000"
+          stroke-width="2"
+          fill="none"
+        />
+
+        <!-- Corps -->
+        <rect x="45" y="48" width="30" height="35" fill="#4A90E2" rx="5" />
+
+        <!-- Bras gauche -->
+        <line
+          x1="45"
+          y1="55"
+          x2="30"
+          y2="70"
+          stroke="#FFD4A3"
+          stroke-width="6"
+          stroke-linecap="round"
+        />
+
+        <!-- Bras droit tenant le sac -->
+        <line
+          x1="75"
+          y1="55"
+          x2="90"
+          y2="65"
+          stroke="#FFD4A3"
+          stroke-width="6"
+          stroke-linecap="round"
+        />
+
+        <!-- Sac à dos / Sac -->
+        <g id="bag">
+          <!-- Corps du sac -->
+          <rect
+            x="85"
+            y="60"
+            width="25"
+            height="30"
+            fill="#8B4513"
+            rx="3"
+            stroke="#654321"
+            stroke-width="2"
+          />
+          <!-- Poche -->
+          <rect x="88" y="65" width="19" height="10" fill="#A0522D" rx="2" />
+          <!-- Poignée -->
+          <path
+            d="M 92 60 Q 97.5 55 103 60"
+            stroke="#654321"
+            stroke-width="3"
+            fill="none"
+            stroke-linecap="round"
+          />
+          <!-- Détails -->
+          <line
+            x1="97"
+            y1="70"
+            x2="97"
+            y2="85"
+            stroke="#654321"
+            stroke-width="1"
+          />
+        </g>
+
+        <!-- Jambes animées -->
+        <g id="legs">
+          <line
+            id="leftLeg"
+            x1="55"
+            y1="83"
+            x2="50"
+            y2="110"
+            stroke="#2C3E50"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+          <line
+            id="rightLeg"
+            x1="65"
+            y1="83"
+            x2="70"
+            y2="110"
+            stroke="#2C3E50"
+            stroke-width="6"
+            stroke-linecap="round"
+          />
+
+          <!-- Pieds -->
+          <ellipse id="leftFoot" cx="50" cy="113" rx="8" ry="4" fill="#000" />
+          <ellipse id="rightFoot" cx="70" cy="113" rx="8" ry="4" fill="#000" />
+        </g>
+      </svg>
+    </div>
+
     <!-- Navigation -->
     <nav
       class="max-w-5xl mx-auto bg-white bg-opacity-90 rounded-3xl shadow-lg mb-8 p-4"
@@ -497,6 +634,48 @@
           "Bonjour ! C'est Abdoulaye. Soyez le bienvenue ! Le développement web est ma passion."
         );
       }
+
+      // Animation du personnage qui marche
+      const character = document.getElementById("walkingCharacter");
+      const leftLeg = document.getElementById("leftLeg");
+      const rightLeg = document.getElementById("rightLeg");
+      const leftFoot = document.getElementById("leftFoot");
+      const rightFoot = document.getElementById("rightFoot");
+
+      let position = -150;
+      let direction = 1;
+      let legAngle = 0;
+
+      function animateWalking() {
+        // Déplacer le personnage
+        position += 2 * direction;
+        character.style.left = position + "px";
+
+        // Animation des jambes
+        legAngle += 0.2;
+        const leftOffset = Math.sin(legAngle) * 15;
+        const rightOffset = Math.sin(legAngle + Math.PI) * 15;
+
+        leftLeg.setAttribute("x2", 50 + leftOffset);
+        leftLeg.setAttribute("y2", 110);
+        leftFoot.setAttribute("cx", 50 + leftOffset);
+
+        rightLeg.setAttribute("x2", 70 + rightOffset);
+        rightLeg.setAttribute("y2", 110);
+        rightFoot.setAttribute("cx", 70 + rightOffset);
+
+        // Changer de direction aux bords
+        if (position > window.innerWidth) {
+          position = -150;
+        }
+
+        requestAnimationFrame(animateWalking);
+      }
+
+      // Démarrer l'animation après 2 secondes
+      setTimeout(() => {
+        animateWalking();
+      }, 2000);
     </script>
   </body>
 </html>
